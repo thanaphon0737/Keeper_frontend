@@ -5,7 +5,9 @@ import "./index.css";
 import App from "./App.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
+import Dashboard from "./pages/Home/Dashboard.jsx";
+import About from "./pages/About/About.jsx";
+import Keeper from "./pages/Keeper/Keeper.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
@@ -14,6 +16,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/about" element={<About />} />
+        <Route path="/dashboard/keeper" element={<Keeper />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
