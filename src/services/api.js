@@ -39,3 +39,33 @@ export const logoutUser = async () => {
     withCredentials: true,
   });
 };
+
+export const fetchNotes = async (userId) => {
+  const res = await axios.get(`${API_URL}/api/users/${userId}/notes`,{ withCredentials:true})
+  return res;
+}
+
+export const createNote = async (userId, note) =>{
+  const res = await axios.post(`${API_URL}/api/users/${userId}/notes`,{
+    title: note.title || null,
+    content: note.content || null
+  }, {withCredentials: true});
+  return res;
+
+}
+
+ export const editNote = async (userId,noteId, note) => {
+  const res = await axios.put(`${API_URL}/api/users/${userId}/notes/${noteId}`,
+    {
+      title: note.title || null,
+      content: note.content || null
+    }, {withCredentials: true});
+  return res;
+ }
+
+ export const deleteNote = async (userId,noteId) => {
+  const res = await axios.delete(`${API_URL}/api/users/${userId}/notes/${noteId}`,
+   {withCredentials: true}
+  );
+  return res;
+ }
