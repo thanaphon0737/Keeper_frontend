@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { deleteNote, editNote, fetchNotes } from "../../services/api";
+import ConfirmationCard from "../../components/ConfirmationCard";
 
 function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
   const userId = sessionStorage.getItem("userId");
+  const [showConfirm, setShowConfirm] = useState(false);
   const [note, setNote] = useState({
     title: title || "",
     content: content || "",
@@ -15,7 +17,11 @@ function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
       [name]: value,
     }));
   };
-
+  const handleDelete = () =>{
+    console.log('item deleted');
+    onDelete(id)
+    setShowConfirm(false);
+  }
   return (
     <form>
       <div className="mul-card flex flex-col border-2 w-[200px] rounded-lg p-4">
@@ -50,10 +56,20 @@ function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
           <button
             type="button"
             className="border-2 p-2 rounded-lg"
-            onClick={() => onDelete(id)}
+            onClick={() => setShowConfirm(true)}
           >
             Delete
           </button>
+
+          {showConfirm && (
+            <ConfirmationCard
+            title = "Confirm Delete"
+            message="Are you sure to delete ?"
+            onConfirm={handleDelete}
+            onCancel={() => setShowConfirm(false)}
+            buttonColor="#f2153e"
+            />
+          )}
         </div>
       </div>
     </form>
