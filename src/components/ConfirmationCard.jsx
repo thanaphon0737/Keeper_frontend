@@ -13,7 +13,8 @@ function ConfirmationCard({ title, message, onConfirm, onCancel ,buttonColor}) {
           </button>
           <button
             onClick={onConfirm}
-            className={`px-4 py-2 bg-[${buttonColor}] text-white rounded hover:bg-[${buttonColor}]/50 cursor-pointer `}
+            style={{ backgroundColor: buttonColor }}
+            className={`px-4 py-2 text-white rounded hover:opacity-50 cursor-pointer `}
           >
             Confirm
           </button>

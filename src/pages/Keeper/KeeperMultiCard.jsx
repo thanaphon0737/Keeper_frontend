@@ -5,6 +5,7 @@ import ConfirmationCard from "../../components/ConfirmationCard";
 function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
   const userId = sessionStorage.getItem("userId");
   const [showConfirm, setShowConfirm] = useState(false);
+  const [editConfirm, setEditConfirm] = useState(false);
   const [note, setNote] = useState({
     title: title || "",
     content: content || "",
@@ -17,6 +18,11 @@ function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
       [name]: value,
     }));
   };
+  const handleEdit = () => {
+    console.log('item edited');
+    onUpdate(id,note);
+    setEditConfirm(false);
+  }
   const handleDelete = () =>{
     console.log('item deleted');
     onDelete(id)
@@ -49,10 +55,19 @@ function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
           <button
             type="button"
             className="border-2 p-2 rounded-lg"
-            onClick={() => onUpdate(id, note)}
+            onClick={() => setEditConfirm(true)}
           >
             edit
           </button>
+          {editConfirm && (
+            <ConfirmationCard
+            title="Confirem edit"
+            message="Are you sure to edit ?"
+            onConfirm={handleEdit}
+            onCancel={() => setEditConfirm(false)}
+            buttonColor="#f1e41a"
+            />
+          )}
           <button
             type="button"
             className="border-2 p-2 rounded-lg"
