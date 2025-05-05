@@ -3,8 +3,8 @@ import { deleteNote, editNote, fetchNotes } from "../../services/api";
 import { Pencil, Trash } from "lucide-react";
 import ConfirmationCard from "../../components/ConfirmationCard";
 import AutoGrowingTextarea from "../../components/AutoGrowingTextarea";
-
-function KeeperMultiCard({ id, title, content, onDelete, onUpdate }) {
+import { datetimeFormat } from "../../services/datetimeFormat";
+function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
   const userId = sessionStorage.getItem("userId");
   const [showConfirm, setShowConfirm] = useState(false);
   const [editConfirm, setEditConfirm] = useState(false);
@@ -33,15 +33,20 @@ function KeeperMultiCard({ id, title, content, onDelete, onUpdate }) {
   return (
     <form>
       <div className="mul-card flex flex-col border-1 border-black/30 w-[200px] rounded-lg p-4">
-        <div className="flex gap-2">
+        {/* for testing */}
+        {/* <div className="flex gap-2">
           <h2 className="text-gray-400">ID:</h2>
           <span>{id}</span>
+        </div> */}
+        <div className="flex gap-2 text-sm text-black/30">
+          <span>lastChange: </span>
+          <div>{datetimeFormat(updateAt)}</div>
         </div>
         <div className="flex gap-2">
           <textarea
             name="title"
             value={note?.title}
-            className="focus:outline-none text-sm resize-none overflow-hidden"
+            className="focus:outline-none resize-none overflow-hidden"
             onChange={handleChange}
           />
         </div>

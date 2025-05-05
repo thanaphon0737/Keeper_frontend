@@ -81,7 +81,7 @@ function KeeperContent() {
         >
           <input
             type="text"
-            placeholder="title"
+            placeholder="Title..."
             name="title"
             value={newNote.title}
             className="w-full py-2  focus:outline-none text-sm resize-none overflow-hidden "
@@ -109,6 +109,7 @@ function KeeperContent() {
             key={note.id}
             id={note.id}
             title={note.title}
+            updateAt={note.updated_at}
             content={note.content}
             onDelete={handleDelete}
             onUpdate={handleUpdate}
