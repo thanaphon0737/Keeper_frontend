@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { deleteNote, editNote, fetchNotes } from "../../services/api";
+import { Pencil, Trash } from "lucide-react";
 import ConfirmationCard from "../../components/ConfirmationCard";
+import AutoGrowingTextarea from "../../components/AutoGrowingTextarea";
 
-function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
+function KeeperMultiCard({ id, title, content, onDelete, onUpdate }) {
   const userId = sessionStorage.getItem("userId");
   const [showConfirm, setShowConfirm] = useState(false);
   const [editConfirm, setEditConfirm] = useState(false);
@@ -19,70 +21,70 @@ function KeeperMultiCard({ id, title, content, onDelete,onUpdate }) {
     }));
   };
   const handleEdit = () => {
-    console.log('item edited');
-    onUpdate(id,note);
+    console.log("item edited");
+    onUpdate(id, note);
     setEditConfirm(false);
-  }
-  const handleDelete = () =>{
-    console.log('item deleted');
-    onDelete(id)
+  };
+  const handleDelete = () => {
+    console.log("item deleted");
+    onDelete(id);
     setShowConfirm(false);
-  }
+  };
   return (
     <form>
-      <div className="mul-card flex flex-col border-2 w-[200px] rounded-lg p-4">
+      <div className="mul-card flex flex-col border-1 border-black/30 w-[200px] rounded-lg p-4">
         <div className="flex gap-2">
           <h2 className="text-gray-400">ID:</h2>
           <span>{id}</span>
         </div>
         <div className="flex gap-2">
-          <input
-            type="text"
+          <textarea
             name="title"
             value={note?.title}
+            className="focus:outline-none text-sm resize-none overflow-hidden"
             onChange={handleChange}
           />
         </div>
         <div className="flex gap-2">
-          <input
-            type="text"
+          <AutoGrowingTextarea
             name="content"
             value={note?.content}
+            className="w-full h-full focus:outline-none text-sm resize-none"
             onChange={handleChange}
           />
         </div>
         <div className="flex gap-2 justify-end">
           <button
             type="button"
-            className="border-2 p-2 rounded-lg"
+            className=" hover:bg-black/20 p-2 rounded-lg cursor-pointer"
             onClick={() => setEditConfirm(true)}
           >
-            edit
+            <Pencil size={18} />
           </button>
           {editConfirm && (
             <ConfirmationCard
-            title="Confirem edit"
-            message="Are you sure to edit ?"
-            onConfirm={handleEdit}
-            onCancel={() => setEditConfirm(false)}
-            buttonColor="#f1e41a"
+              title="Confirem edit"
+              message="Are you sure to edit ?"
+              onConfirm={handleEdit}
+              onCancel={() => setEditConfirm(false)}
+              buttonColor="#fcc700"
             />
           )}
           <button
             type="button"
-            className="border-2 p-2 rounded-lg"
+            className="hover:bg-black/20 p-2 rounded-lg cursor-pointer"
             onClick={() => setShowConfirm(true)}
           >
-            Delete
+            <Trash size={18} />
           </button>
 
           {showConfirm && (
             <ConfirmationCard
-            title = "Confirm Delete"
-            message="Are you sure to delete ?"
-            onConfirm={handleDelete}
-            onCancel={() => setShowConfirm(false)}
-            buttonColor="#f2153e"
+              title="Confirm Delete"
+              message="Are you sure to delete ?"
+              onConfirm={handleDelete}
+              onCancel={() => setShowConfirm(false)}
+              buttonColor="#f2153e"
             />
           )}
         </div>
