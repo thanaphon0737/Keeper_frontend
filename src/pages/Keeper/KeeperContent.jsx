@@ -18,18 +18,23 @@ function KeeperContent() {
   const userId = sessionStorage.getItem("userId");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(newNote);
+    
     const note = {
       title: newNote.title,
       content: newNote.content,
     };
     const res = await createNote(userId, note);
-    console.log(res);
+    
     if (res.status === 201) {
       console.log("create success");
-
+      setNewNote({
+        title: "",
+        content: ""
+      });
       fetchData();
+      
     }
+    
   };
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -60,9 +65,7 @@ function KeeperContent() {
   const handleUpdate = async (id, newNote) => {
     const res = await editNote(userId, id, newNote);
     if (res.status == 200) {
-      // setNotes((prev) =>
-      //   prev.map((note) => (note.id === id ? { ...note, text: newNote } : note))
-      // );
+
       fetchData();
     }
   };
@@ -80,6 +83,7 @@ function KeeperContent() {
             type="text"
             placeholder="title"
             name="title"
+            value={newNote.title}
             className="w-full py-2  focus:outline-none text-sm resize-none overflow-hidden "
             onChange={handleChange}
           />
@@ -89,6 +93,7 @@ function KeeperContent() {
             placeholder="Enter text..."
             className="w-full py-2  focus:outline-none text-sm resize-none overflow-hidden"
             name="content"
+            value={newNote.content}
             onChange={handleChange}
           />
 
