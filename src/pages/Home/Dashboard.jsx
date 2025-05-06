@@ -8,8 +8,8 @@ import DashboardContent from "./DashboardContent";
 function Dashboard() {
   
   return (
-    <div className="min-h-screen grid grid-rows-[auto_1fr_auto] grid-cols-[200px_1fr]">
-      <Header/>
+    <div className="min-h-screen grid grid-rows-[1fr_auto] grid-cols-[240px_1fr]">
+      {/* <Header/> */}
       <Sidebar/>
       <DashboardContent/>
       <Footer/>

@@ -51,8 +51,8 @@ function Register() {
     register();
   };
   return (
-    <div className="flex justify-center items-center h-screen bg-[#D6DFE8]">
-      <div className="flex border-2 rounded-lg w-[500px] h-[550px] justify-center items-center bg-white">
+    <div className="flex justify-center items-center h-screen bg-[#6366f1]/70">
+      <div className="flex border-1 rounded-lg w-[500px] h-[550px] justify-center items-center bg-white shadow-xl">
         <form
           onSubmit={handleRegister}
           className="flex flex-col gap-4 items-center"
@@ -84,7 +84,7 @@ function Register() {
           />
           <button
             type="submit"
-            className="border-2 bg-blue-400 p-1 rounded-lg w-full"
+            className="border-2 bg-[#6366f1] p-1 rounded-lg w-full"
           >
             Register
           </button>

@@ -38,7 +38,7 @@ function DashboardContent() {
           <span>email: </span>
           {userProfile?.email}
         </div>
-        <button onClick={handleLogout} className="cursor-pointer">
+        <button onClick={handleLogout} className="cursor-pointer shadow-xl rounded-lg bg-[#6366f1] text-white">
           Logout
         </button>
       </div>

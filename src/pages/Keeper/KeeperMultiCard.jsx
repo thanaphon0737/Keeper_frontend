@@ -32,21 +32,17 @@ function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
   };
   return (
     <form>
-      <div className="mul-card flex flex-col border-1 border-black/30 w-[200px] rounded-lg p-4">
+      <div className="mul-card flex flex-col border-1 border-black/30 w-[300px] rounded-lg p-4">
         {/* for testing */}
         {/* <div className="flex gap-2">
           <h2 className="text-gray-400">ID:</h2>
           <span>{id}</span>
         </div> */}
-        <div className="flex gap-2 text-sm text-black/30">
-          <span>lastChange: </span>
-          <div>{datetimeFormat(updateAt)}</div>
-        </div>
         <div className="flex gap-2">
           <textarea
             name="title"
             value={note?.title}
-            className="focus:outline-none resize-none overflow-hidden"
+            className="focus:outline-none resize-none overflow-hidden font-normal text-2xl"
             onChange={handleChange}
           />
         </div>
@@ -54,17 +50,21 @@ function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
           <AutoGrowingTextarea
             name="content"
             value={note?.content}
-            className="w-full h-full focus:outline-none text-sm resize-none"
+            className="w-full h-full focus:outline-none text-sm resize-none text-gray-600"
             onChange={handleChange}
           />
         </div>
         <div className="flex gap-2 justify-end">
+        <div className="flex gap-2 text-xs text-gray-700 font-thin">
+          <span>Last edited: </span>
+          <div>{datetimeFormat(updateAt)}</div>
+        </div>
           <button
             type="button"
             className=" hover:bg-black/20 p-2 rounded-lg cursor-pointer"
             onClick={() => setEditConfirm(true)}
           >
-            <Pencil size={18} />
+            <Pencil size={16} />
           </button>
           {editConfirm && (
             <ConfirmationCard
@@ -80,7 +80,7 @@ function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
             className="hover:bg-black/20 p-2 rounded-lg cursor-pointer"
             onClick={() => setShowConfirm(true)}
           >
-            <Trash size={18} />
+            <Trash size={16} />
           </button>
 
           {showConfirm && (

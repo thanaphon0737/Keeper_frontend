@@ -7,6 +7,7 @@ import {
   deleteNote,
   editNote,
 } from "../../services/api";
+import Header from "../../components/Header";
 import KeeperMultiCard from "./KeeperMultiCard";
 
 function KeeperContent() {
@@ -73,7 +74,8 @@ function KeeperContent() {
     fetchData();
   }, []);
   return (
-    <div className="p-4 flex flex-col justify-start items-center gap-6">
+    <div className="p-4 flex flex-col justify-start items-center gap-6 w-full">
+      <Header/>
       <div className="card w-[400px] h-[150px] rounded-lg border border-1 border-gray-300 rounded-2xl shadow-xl">
         <form
           onSubmit={handleSubmit}
@@ -98,7 +100,7 @@ function KeeperContent() {
           />
 
           <button type="submit" 
-          className="absolute bottom-0 right-10 translate-x-1/2 translate-y-1/2 overflow-visible w-10 h-10 bg-yellow-400 text-white rounded-full shadow-md hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 flex items-center justify-center cursor-pointer">
+          className="absolute bottom-0 right-10 translate-x-1/2 translate-y-1/2 overflow-visible w-10 h-10 bg-[#6366f1]/80 text-white rounded-full shadow-md hover:bg-[#6366f1] focus:outline-none focus:ring-2 focus:ring-yellow-300 flex items-center justify-center cursor-pointer">
             +
           </button>
         </form>

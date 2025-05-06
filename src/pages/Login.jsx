@@ -24,10 +24,10 @@ function Login() {
     }
   }
   return (
-    <div className="flex justify-center items-center h-screen bg-[#D6DFE8]">
-      <div className="flex border-2 rounded-lg w-[500px] h-[550px] justify-center items-center bg-white">
+    <div className="flex justify-center items-center h-screen bg-[#6366f1]/70">
+      <div className="flex border-1 rounded-lg w-[500px] h-[550px] justify-center items-center bg-white shadow-xl">
         <form onSubmit={handleLogin} className="flex flex-col gap-4 items-center">
-          <h1 className="text-xl">Member Login</h1>
+          <h1 className="text-xl">Keeper Login</h1>
           <input type="text" 
           className="bg-gray-400 rounded-lg p-1" 
           placeholder="email"
@@ -41,7 +41,7 @@ function Login() {
           onChange={e => setPassword(e.target.value)}
           />
           <button type="submit"
-          className="border-2 bg-blue-400 p-1 rounded-lg w-full">Login</button>
+          className="border-2 bg-[#6366f1] p-1 rounded-lg w-full text-white cursor-pointer">Login</button>
           <button className="place-self-start text-gray-400">forgot password?</button>
           <Link to="/register" className="place-self-start text-gray-400">create account</Link>
         </form>
