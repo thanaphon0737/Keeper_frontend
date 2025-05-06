@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import {Pencil, Trash} from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import {
   createNote,
   fetchNotes,
@@ -16,26 +16,39 @@ function KeeperContent() {
     title: "",
     content: "",
   });
+  const [error, setError] = useState("");
   const userId = sessionStorage.getItem("userId");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const note = {
       title: newNote.title,
       content: newNote.content,
     };
-    const res = await createNote(userId, note);
-    
-    if (res.status === 201) {
-      console.log("create success");
-      setNewNote({
-        title: "",
-        content: ""
-      });
-      fetchData();
-      
+    try {
+      const res = await createNote(userId, note);
+      if (res.status === 201) {
+        console.log("create success");
+        setNewNote({
+          title: "",
+          content: "",
+        });
+        setError('')
+
+        fetchData();
+      }
+    } catch (error) {
+      console.log("handling error here...");
+      if (newNote.title.trim() === "" && newNote.content.trim() === "") {
+        setError("Note cannot be empty");
+        
+      }
+      if (newNote.title.trim() === "") {
+        setError("Title cannot be empty");
+      }else if(newNote.content.trim() === ""){
+        setError("Content cannot be empty");
+      }
     }
-    
   };
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -66,7 +79,6 @@ function KeeperContent() {
   const handleUpdate = async (id, newNote) => {
     const res = await editNote(userId, id, newNote);
     if (res.status == 200) {
-
       fetchData();
     }
   };
@@ -75,7 +87,7 @@ function KeeperContent() {
   }, []);
   return (
     <div className="p-4 flex flex-col justify-start items-center gap-6 w-full">
-      <Header/>
+      <Header />
       <div className="card w-[400px] h-[150px] rounded-lg border border-1 border-gray-300 rounded-2xl shadow-xl">
         <form
           onSubmit={handleSubmit}
@@ -86,10 +98,12 @@ function KeeperContent() {
             placeholder="Title..."
             name="title"
             value={newNote.title}
-            className="w-full py-2  focus:outline-none text-sm resize-none overflow-hidden "
+            className={`w-full py-2  focus:outline-none text-sm resize-none overflow-hidden ${
+              error ? "border-red-500" : ""
+            }`}
             onChange={handleChange}
           />
-          
+          {error && <p className="text-red-500 text-xs">{error}</p>}
           <textarea
             rows={1}
             placeholder="Enter text..."
@@ -98,9 +112,11 @@ function KeeperContent() {
             value={newNote.content}
             onChange={handleChange}
           />
-
-          <button type="submit" 
-          className="absolute bottom-0 right-10 translate-x-1/2 translate-y-1/2 overflow-visible w-10 h-10 bg-[#6366f1]/80 text-white rounded-full shadow-md hover:bg-[#6366f1] focus:outline-none focus:ring-2 focus:ring-yellow-300 flex items-center justify-center cursor-pointer">
+          {error && <p className="text-red-500 text-xs">{error}</p>}
+          <button
+            type="submit"
+            className="absolute bottom-0 right-10 translate-x-1/2 translate-y-1/2 overflow-visible w-10 h-10 bg-[#6366f1]/80 text-white rounded-full shadow-md hover:bg-[#6366f1] focus:outline-none focus:ring-2 focus:ring-yellow-300 flex items-center justify-center cursor-pointer"
+          >
             +
           </button>
         </form>

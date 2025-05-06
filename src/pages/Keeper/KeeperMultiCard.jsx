@@ -8,6 +8,7 @@ function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
   const userId = sessionStorage.getItem("userId");
   const [showConfirm, setShowConfirm] = useState(false);
   const [editConfirm, setEditConfirm] = useState(false);
+  const [error, setError] = useState(false);
   const [note, setNote] = useState({
     title: title || "",
     content: content || "",
