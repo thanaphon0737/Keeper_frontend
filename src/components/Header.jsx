@@ -1,3 +1,4 @@
+import AccountDisplay from "./AccountDisplay"
 function Header() {
   return (
     <header className="bg-white text-gray-700 p-4 col-span-2 border-b border-gray-400 flex justify-between w-full">
@@ -6,7 +7,7 @@ function Header() {
         placeholder="Search..." 
         className="w-full focus:outline-none"/>
       </div>
-      <div>Account name</div>
+      <AccountDisplay/>
     </header>
   )
 }
