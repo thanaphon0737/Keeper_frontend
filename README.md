@@ -40,7 +40,7 @@ React
 
 JavaScript (ES6+)
 
-CSS / Tailwind (or your preferred styling)
+CSS / Tailwind 
 
 Axios or Fetch API
 ## 🧑‍💻 About Me
