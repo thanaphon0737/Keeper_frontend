@@ -4,7 +4,7 @@ import { Pencil, Trash } from "lucide-react";
 import ConfirmationCard from "../../components/ConfirmationCard";
 import AutoGrowingTextarea from "../../components/AutoGrowingTextarea";
 import { datetimeFormat } from "../../services/datetimeFormat";
-function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
+function KeeperMultiCard({ id, title,tagName, content, onDelete, onUpdate, updateAt }) {
   const userId = sessionStorage.getItem("userId");
   const [showConfirm, setShowConfirm] = useState(false);
   const [editConfirm, setEditConfirm] = useState(false);
@@ -39,6 +39,12 @@ function KeeperMultiCard({ id, title, content, onDelete, onUpdate, updateAt }) {
           <h2 className="text-gray-400">ID:</h2>
           <span>{id}</span>
         </div> */}
+        {tagName && <div className="flex text-sm">
+            <div className="border-1 p-1 rounded-lg">
+              {tagName}
+            </div>
+          </div>}
+          
         <div className="flex gap-2">
           <textarea
             name="title"

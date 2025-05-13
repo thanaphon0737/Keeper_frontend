@@ -40,8 +40,10 @@ export const logoutUser = async () => {
   });
 };
 
-export const fetchNotes = async (userId) => {
-  const res = await axios.get(`${API_URL}/api/users/${userId}/notes`,{ withCredentials:true})
+export const fetchNotes = async (userId,q,page = 1,limit = 10) => {
+    
+    const res = await axios.get(`${API_URL}/api/users/${userId}/notes?q=${q}&page=${page}&limit=${limit}`,{ withCredentials:true})
+
   return res;
 }
 
@@ -68,4 +70,9 @@ export const createNote = async (userId, note) =>{
    {withCredentials: true}
   );
   return res;
+ }
+
+ export const getTags = async () => {
+  const res = await axios.get(`${API_URL}/api/notes/tags`,{withCredentials:true})
+  return res
  }

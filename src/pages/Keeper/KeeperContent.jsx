@@ -6,12 +6,15 @@ import {
   fetchNotes,
   deleteNote,
   editNote,
+  getTags
 } from "../../services/api";
 import Header from "../../components/Header";
 import KeeperMultiCard from "./KeeperMultiCard";
+import TagsTitle from "./TagsTitle";
 
 function KeeperContent() {
   const [notes, setNotes] = useState([]);
+  const [tags,setTags] = useState([])
   const [newNote, setNewNote] = useState({
     title: "",
     content: "",
@@ -57,13 +60,17 @@ function KeeperContent() {
       [name]: value,
     }));
   };
-  const fetchData = async () => {
+  const fetchData = async (query = "") => {
     try {
-      const res = await fetchNotes(userId);
+      console.log(`q: ${query}`)
+      const res = await fetchNotes(userId,query);
+      const resTags = await getTags();
       console.log(res.data);
       if (res.status === 200) {
-        const sorted = [...res.data].sort((a, b) => b.id - a.id);
-        setNotes(sorted);
+        // const sorted = [...res.data].sort((a, b) => b.id - a.id);
+        
+        setNotes(res.data.notes);
+        setTags(resTags.data);
       }
     } catch (err) {
       console.error();
@@ -87,7 +94,8 @@ function KeeperContent() {
   }, []);
   return (
     <div className="p-4 flex flex-col justify-start items-center gap-6 w-full">
-      <Header />
+      <Header onUpdate={fetchData} />
+      <TagsTitle names={tags}/>
       <div className="card w-[400px] h-[150px] rounded-lg border border-1 border-gray-300 rounded-2xl shadow-xl">
         <form
           onSubmit={handleSubmit}
@@ -127,6 +135,7 @@ function KeeperContent() {
             key={note.id}
             id={note.id}
             title={note.title}
+            tagName={note.tag_name}
             updateAt={note.updated_at}
             content={note.content}
             onDelete={handleDelete}

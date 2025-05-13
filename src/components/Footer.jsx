@@ -8,7 +8,7 @@ function Footer() {
         | Github:{" "}
         <a
           href="https://github.com/thanaphon0737"
-          class="underline hover:text-white-400"
+          className="underline hover:text-white-400"
           target="_blank"
         >
           thanaphon0737
