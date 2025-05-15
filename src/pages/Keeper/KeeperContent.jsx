@@ -61,6 +61,10 @@ function KeeperContent() {
     }));
     console.log(tagId);
   };
+  const queryTags = async (tagName) => {
+    console.log(tagName)
+    fetchData("",tagName)
+  }
   const handleChange = async (e) => {
     const { name, value } = e.target;
     setNewNote((prev) => ({
@@ -68,10 +72,11 @@ function KeeperContent() {
       [name]: value,
     }));
   };
-  const fetchData = async (query = "") => {
+  const fetchData = async (query = "",tagName="") => {
     try {
       console.log(`q: ${query}`);
-      const res = await fetchNotes(userId, query);
+      console.log(`tag: ${tagName}`)
+      const res = await fetchNotes(userId, query,tagName);
       const resTags = await getTags();
       console.log(res.data);
       if (res.status === 200) {
@@ -103,7 +108,7 @@ function KeeperContent() {
   return (
     <div className="p-4 flex flex-col justify-start items-center gap-6 w-full">
       <Header onUpdate={fetchData} />
-      <TagsTitle names={tags} />
+      <TagsTitle tags={tags} onUpdate={queryTags}/>
       <div className="card w-[400px] h-[150px] rounded-lg border border-1 border-gray-300 rounded-2xl shadow-xl">
         <form
           onSubmit={handleSubmit}
