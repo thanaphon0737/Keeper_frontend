@@ -50,7 +50,8 @@ export const fetchNotes = async (userId,q,page = 1,limit = 10) => {
 export const createNote = async (userId, note) =>{
   const res = await axios.post(`${API_URL}/api/users/${userId}/notes`,{
     title: note.title || null,
-    content: note.content || null
+    content: note.content || null,
+    tagId: note.tagId || null
   }, {withCredentials: true});
   return res;
 

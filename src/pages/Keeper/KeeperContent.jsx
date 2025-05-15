@@ -6,15 +6,16 @@ import {
   fetchNotes,
   deleteNote,
   editNote,
-  getTags
+  getTags,
 } from "../../services/api";
 import Header from "../../components/Header";
 import KeeperMultiCard from "./KeeperMultiCard";
 import TagsTitle from "./TagsTitle";
+import SelectTags from "./SelectTags";
 
 function KeeperContent() {
   const [notes, setNotes] = useState([]);
-  const [tags,setTags] = useState([])
+  const [tags, setTags] = useState([]);
   const [newNote, setNewNote] = useState({
     title: "",
     content: "",
@@ -27,6 +28,7 @@ function KeeperContent() {
     const note = {
       title: newNote.title,
       content: newNote.content,
+      tagId: newNote.tagId
     };
     try {
       const res = await createNote(userId, note);
@@ -36,7 +38,7 @@ function KeeperContent() {
           title: "",
           content: "",
         });
-        setError('')
+        setError("");
 
         fetchData();
       }
@@ -44,14 +46,20 @@ function KeeperContent() {
       console.log("handling error here...");
       if (newNote.title.trim() === "" && newNote.content.trim() === "") {
         setError("Note cannot be empty");
-        
       }
       if (newNote.title.trim() === "") {
         setError("Title cannot be empty");
-      }else if(newNote.content.trim() === ""){
+      } else if (newNote.content.trim() === "") {
         setError("Content cannot be empty");
       }
     }
+  };
+  const handleSelectTag = async (tagId) => {
+    setNewNote((prev) => ({
+      ...prev,
+      tagId: tagId,
+    }));
+    console.log(tagId);
   };
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -62,13 +70,13 @@ function KeeperContent() {
   };
   const fetchData = async (query = "") => {
     try {
-      console.log(`q: ${query}`)
-      const res = await fetchNotes(userId,query);
+      console.log(`q: ${query}`);
+      const res = await fetchNotes(userId, query);
       const resTags = await getTags();
       console.log(res.data);
       if (res.status === 200) {
         // const sorted = [...res.data].sort((a, b) => b.id - a.id);
-        
+
         setNotes(res.data.notes);
         setTags(resTags.data);
       }
@@ -95,7 +103,7 @@ function KeeperContent() {
   return (
     <div className="p-4 flex flex-col justify-start items-center gap-6 w-full">
       <Header onUpdate={fetchData} />
-      <TagsTitle names={tags}/>
+      <TagsTitle names={tags} />
       <div className="card w-[400px] h-[150px] rounded-lg border border-1 border-gray-300 rounded-2xl shadow-xl">
         <form
           onSubmit={handleSubmit}
@@ -115,11 +123,13 @@ function KeeperContent() {
           <textarea
             rows={1}
             placeholder="Enter text..."
-            className="w-full py-2  focus:outline-none text-sm resize-none overflow-hidden"
+            className="w-full py-2 h-full  focus:outline-none text-sm resize-none overflow-hidden"
             name="content"
             value={newNote.content}
             onChange={handleChange}
           />
+          {/* tags select  */}
+          <SelectTags tags={tags} onUpdate={handleSelectTag} />
           {error && <p className="text-red-500 text-xs">{error}</p>}
           <button
             type="submit"
